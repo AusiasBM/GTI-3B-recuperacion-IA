@@ -36,9 +36,10 @@
 )
 
 (defrule comprobarFinal
-    ( declare (salience 1) )
-    ( estadoInicial $?torreInicial $?torreFinal estadoBrazo ?bloqueBrazo )
-    (test (neq ?bloqueBrazo vacio))
+    ( declare (salience 10) )
+    ( estadoInicial $?torres estadoBrazo vacio )
+    ( estadoFinal $?torres estadoBrazo vacio )
     =>
-    (assert ( estadoInicial $?torreInicial torre ?bloqueBrazo mesa $?torreFinal estadoBrazo vacio ))
+    (printout t "Terminado" crlf)
+    (halt)
 )
