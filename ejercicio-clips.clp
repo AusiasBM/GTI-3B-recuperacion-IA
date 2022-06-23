@@ -1,9 +1,10 @@
 
 (deffacts hechos
-    ( estadoInicial 
+    ( estadoInicial pila 
         bloque A debajo B     encima nada
         bloque B debajo C     encima A
         bloque C debajo mesa  encima B
+        pila
         bloque E debajo D     encima nada
         bloque D debajo mesa  encima E
         estadoBrazo vacio
@@ -19,9 +20,10 @@
 
 (defrule desapilar
     ( declare (salience 1) )
-    ( estadoInicial )
+    ( estadoInicial $?pila1 pila bloque ?B1 debajo ?Bd encima ?Be $?pila2 estadoBrazo ?Ebrazo )
+    ( test ( and ( <> ?Be nada ) ( = ?Ebrazo vacio ) ) )
     =>
-    (assert (  ))
+    (assert ( estadoInicial $?pila1 pila bloque ?B1 debajo ?Bd encima nada  ))
 )
 
 (defrule apilar
