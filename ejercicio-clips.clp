@@ -1,29 +1,14 @@
 
 (deffacts hechos
-    ( estadoInicial pila 
-        bloque A debajo B     encima nada
-        bloque B debajo C     encima A
-        bloque C debajo mesa  encima B
-        pila
-        bloque E debajo D     encima nada
-        bloque D debajo mesa  encima E
-        estadoBrazo vacio
-    )
-    ( estado final
-        bloque A debajo mesa  encima E
-        bloque B debajo E     encima D
-        bloque C debajo mesa  encima nada
-        bloque D debajo B     encima nada
-        bloque E debajo A     encima B
-    )  
+    ( estadoInicial torre A B C torre E D estadoBrazo vacio )
+    ( estado final torre1 D B E A torre2 C)
 )
 
-(defrule desapilar
+(defrule desapilarBloqueArriba
     ( declare (salience 1) )
-    ( estadoInicial $?pila1 pila bloque ?B1 debajo ?Bd encima ?Be $?pila2 estadoBrazo ?Ebrazo )
-    ( test ( and ( <> ?Be nada ) ( = ?Ebrazo vacio ) ) )
+    ( estadoInicial $?torreInicial torre ?BloqueArriba $?bloqueAbajo $?torreFinal estadoBrazo vacio )
     =>
-    (assert ( estadoInicial $?pila1 pila bloque ?B1 debajo ?Bd encima nada  ))
+    (assert ( estadoInicial $?torreInicial torre $?bloqueAbajo $?torreFinal estadoBrazo ?BloqueArriba ))
 )
 
 (defrule apilar
